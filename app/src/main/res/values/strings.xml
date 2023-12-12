@@ -3,4 +3,5 @@
     <string name="cont_desc_back_arrow">back arrow</string>
     <string name="home_screen_name">Home</string>
     <string name="profile_screen_name">Profile</string>
+    <string name="cont_desc_team_logo">Team logo</string>
 </resources>
