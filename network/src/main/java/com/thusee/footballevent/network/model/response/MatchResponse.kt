@@ -16,15 +16,15 @@ data class MatchesData(
 
 data class MatchData(
     @field:Json(name = "away")
-    val away: String,
+    val away: String? = null,
     @field:Json(name = "date")
-    val date: String,
+    val date: String? = null,
     @field:Json(name = "description")
-    val description: String,
+    val description: String? = null,
     @field:Json(name = "highlights")
-    val highlights: String,
+    val highlights: String? = null,
     @field:Json(name = "home")
-    val home: String,
+    val home: String? = null,
     @field:Json(name = "winner")
-    val winner: String
+    val winner: String? = null
 )
