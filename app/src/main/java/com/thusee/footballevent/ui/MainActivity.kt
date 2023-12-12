@@ -1,4 +1,4 @@
-package com.thusee.footballevent
+package com.thusee.footballevent.ui
 
 import android.graphics.Color
 import android.os.Bundle

@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "FootballEvent"
 include(":app")
- 
+include(":network")

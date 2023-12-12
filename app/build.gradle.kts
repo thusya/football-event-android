@@ -2,6 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -50,6 +52,12 @@ android {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 dependencies {
 
     implementation(libs.core.ktx)
@@ -62,6 +70,12 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.navigation.compose)
 
+    //Timber for logging
+    implementation(libs.jakewharton.timber)
+
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -69,4 +83,10 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    implementation(project(":network"))
+}
+
+kapt {
+    correctErrorTypes = true
 }
