@@ -2,7 +2,6 @@ package com.thusee.footballevent.network.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.thusee.footballevent.network.utils.TimberLoggingInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @Module
@@ -36,15 +36,14 @@ object RetrofitServiceModule {
         moshiConverterFactory: MoshiConverterFactory,
         @FootballEventApi baseUrl: String,
     ): Retrofit {
-        val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
+        val httpLoggingInterceptor = HttpLoggingInterceptor{ message ->
+                Timber.d("ApiService $message")
+        }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
-        val timberLoggingInterceptor = TimberLoggingInterceptor()
-
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .addInterceptor(timberLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)

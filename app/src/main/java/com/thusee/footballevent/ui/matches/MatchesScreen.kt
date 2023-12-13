@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.profile
+package com.thusee.footballevent.ui.matches
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import com.thusee.footballevent.ui.components.CustomToolbar
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun MatchesScreen(modifier: Modifier = Modifier) {
     Column(modifier = modifier.fillMaxSize()) {
         CustomToolbar(
             modifier = Modifier.fillMaxWidth(),

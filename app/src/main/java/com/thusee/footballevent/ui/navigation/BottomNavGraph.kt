@@ -10,8 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.thusee.footballevent.constants.AnimationConfig
-import com.thusee.footballevent.ui.home.HomeScreen
-import com.thusee.footballevent.ui.profile.ProfileScreen
+import com.thusee.footballevent.ui.teams.TeamsScreen
+import com.thusee.footballevent.ui.matches.MatchesScreen
 
 @Composable
 fun BottomNavGraph(
@@ -20,30 +20,30 @@ fun BottomNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarNavItems.HomeScreen.route
+        startDestination = BottomBarNavItems.Teams.route
     ) {
         composable(
-            route = BottomBarNavItems.HomeScreen.route,
+            route = BottomBarNavItems.Teams.route,
             enterTransition = AnimationConfig.enterTransitionDefault,
             exitTransition = AnimationConfig.exitTransitionDefault,
         ) {
             Box(modifier = Modifier.padding(paddingValues)) {
-                HomeScreen()
+                TeamsScreen()
             }
         }
         composable(
-            route = BottomBarNavItems.ProfileScreen.route,
+            route = BottomBarNavItems.Matches.route,
             enterTransition = AnimationConfig.enterTransitionDefault,
             exitTransition = AnimationConfig.exitTransitionDefault,
         ) {
             Box(modifier = Modifier.padding(paddingValues)) {
-                ProfileScreen()
+                MatchesScreen()
             }
         }
     }
 }
 
 sealed class NavigationScreen(val route: String) {
-    data object Home : NavigationScreen("Home")
-    data object Profile : NavigationScreen("Profile")
+    data object Teams : NavigationScreen("Teams")
+    data object Matches : NavigationScreen("Matches")
 }

@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.home
+package com.thusee.footballevent.ui.teams
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

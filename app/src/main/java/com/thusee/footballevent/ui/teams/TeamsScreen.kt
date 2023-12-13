@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.home
+package com.thusee.footballevent.ui.teams
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,9 +20,9 @@ import com.thusee.footballevent.ui.utils.UIState
 import timber.log.Timber
 
 @Composable
-fun HomeScreen(
+fun TeamsScreen(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: TeamsViewModel = hiltViewModel()
 ) {
 
     val teamsState = viewModel.teamsState.collectAsState()

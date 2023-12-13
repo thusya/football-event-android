@@ -5,7 +5,7 @@ import com.thusee.footballevent.domain.model.Team
 
 interface MatchDataRepository {
 
-    suspend fun getTeams(): List<Team>
-    suspend fun getMatches(): Matches
-    suspend fun getMatchesByTeamId(id: String): Matches
+    suspend fun getTeams(): Result<List<Team>>
+    suspend fun getMatches(): Result<Matches>
+    suspend fun getMatchesByTeamId(id: String): Result<Matches>
 }

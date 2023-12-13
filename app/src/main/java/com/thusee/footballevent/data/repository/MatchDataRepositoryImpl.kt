@@ -5,16 +5,31 @@ import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.model.toMatches
 import com.thusee.footballevent.domain.model.toTeams
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.network.api.ApiService
+import com.thusee.footballevent.network.repository.FootballDataRemote
 import javax.inject.Inject
 
 class MatchDataRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val footballDataRemote: FootballDataRemote
 ) : MatchDataRepository {
-    override suspend fun getTeams(): List<Team> = apiService.getTeamData().toTeams()
 
-    override suspend fun getMatches(): Matches = apiService.getMatchData().toMatches()
+    override suspend fun getTeams(): Result<List<Team>> {
+        return footballDataRemote.getTeamData().fold(
+            onSuccess = { data -> Result.success(data.toTeams()) },
+            onFailure = { exception -> Result.failure(exception) },
+        )
+    }
 
-    override suspend fun getMatchesByTeamId(id: String): Matches =
-        apiService.getMatchesByTeamId(id).toMatches()
+    override suspend fun getMatches(): Result<Matches> {
+        return footballDataRemote.getMatchData().fold(
+            onSuccess = { data -> Result.success(data.toMatches()) },
+            onFailure = { exception -> Result.failure(exception) },
+        )
+    }
+
+    override suspend fun getMatchesByTeamId(id: String): Result<Matches> {
+        return footballDataRemote.getMatchesByTeamId(id).fold(
+            onSuccess = { data -> Result.success(data.toMatches()) },
+            onFailure = { exception -> Result.failure(exception) }
+        )
+    }
 }

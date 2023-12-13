@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.home
+package com.thusee.footballevent.ui.teams
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class TeamsViewModel @Inject constructor(
     private val matchDataRepository: MatchDataRepository
 ) : ViewModel() {
     private val _teamsState = MutableStateFlow<UIState<List<Team>>>(UIState.Loading)
@@ -26,15 +26,15 @@ class HomeViewModel @Inject constructor(
 
     private fun fetchTeams() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val teams = matchDataRepository.getTeams()
-                if (teams.isEmpty()) {
-                    _teamsState.value = UIState.Empty
-                } else {
-                    _teamsState.value = UIState.Success(teams)
-                }
-            } catch (e: Exception) {
-                _teamsState.value = UIState.Error(e)
+            val result = matchDataRepository.getTeams()
+            _teamsState.value = when {
+                result.isSuccess && result.getOrNull().isNullOrEmpty() -> UIState.Empty
+                result.isSuccess -> UIState.Success(result.getOrNull().orEmpty())
+                result.isFailure -> UIState.Error(
+                    result.exceptionOrNull() ?: Exception("Unknown error")
+                )
+
+                else -> UIState.Error(Exception("Error fetching teams"))
             }
         }
     }

@@ -7,15 +7,15 @@ sealed class BottomBarNavItems(
     val title: Int = 0,
     val icon: Int = 0,
 ) {
-    data object HomeScreen : BottomBarNavItems(
-        route = NavigationScreen.Home.route,
-        title = R.string.home_screen_name,
+    data object Teams : BottomBarNavItems(
+        route = NavigationScreen.Teams.route,
+        title = R.string.teams_screen_name,
         icon = R.drawable.ic_home,
     )
 
-    data object ProfileScreen : BottomBarNavItems(
-        route = NavigationScreen.Profile.route,
-        title = R.string.profile_screen_name,
+    data object Matches : BottomBarNavItems(
+        route = NavigationScreen.Matches.route,
+        title = R.string.matches_screen_name,
         icon = R.drawable.ic_profile,
     )
 }
