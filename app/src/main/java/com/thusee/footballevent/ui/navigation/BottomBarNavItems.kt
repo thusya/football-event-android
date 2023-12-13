@@ -16,6 +16,6 @@ sealed class BottomBarNavItems(
     data object Matches : BottomBarNavItems(
         route = NavigationScreen.Matches.route,
         title = R.string.matches_screen_name,
-        icon = R.drawable.ic_profile,
+        icon = R.drawable.ic_schedule,
     )
 }

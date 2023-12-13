@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
 import com.thusee.footballevent.ui.navigation.TEAM_ID
-import com.thusee.footballevent.ui.navigation.TEAM_NAME
 import com.thusee.footballevent.ui.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -20,7 +19,6 @@ class DetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
     private val teamId: String = savedStateHandle.get<String>(TEAM_ID) ?: ""
-    private val teamName: String = savedStateHandle.get<String>(TEAM_NAME) ?: ""
 
     var uiState: MutableState<UIState<Matches>> = mutableStateOf(UIState.Loading)
 

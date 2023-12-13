@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Team
+import com.thusee.footballevent.ui.theme.AppTheme
 import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 
 @Composable
@@ -36,10 +37,10 @@ fun TeamCardContainer(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(10.dp)
+            .padding(8.dp)
             .clickable { onTeamClick() },
         colors = CardDefaults.elevatedCardColors(
-            containerColor = MaterialTheme.colorScheme.background
+            containerColor = AppTheme.colors.cardBackground
         ),
         shape = RoundedCornerShape(10.dp),
         elevation = CardDefaults.elevatedCardElevation(
@@ -63,11 +64,15 @@ fun TeamCardContainer(
                 val data = splitStringIfStartsWithTeam(team.name)
                 Text(
                     text = data.teamPrefix,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        color = AppTheme.colors.defaultTextColor
+                    )
                 )
                 Text(
                     text = data.remainingString,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        color = AppTheme.colors.defaultTextColor
+                    )
                 )
             }
         }

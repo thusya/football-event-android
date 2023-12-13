@@ -105,9 +105,9 @@ fun RowScope.AddItem(
         selected = selected,
 
         colors = NavigationBarItemDefaults.colors(
-            selectedTextColor = Color(0xFFDD514C),
-            selectedIconColor = Color(0xFFDD514C),
-            unselectedTextColor = Color.White,
+            selectedTextColor = Color.White,
+            selectedIconColor = Color.White,
+            unselectedTextColor = MaterialTheme.colorScheme.background,
             indicatorColor = MaterialTheme.colorScheme.primary
         ),
         onClick = {

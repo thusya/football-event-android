@@ -19,6 +19,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.CustomToolbar
 import com.thusee.footballevent.ui.components.horizontal.HorizontalMatchCard
@@ -32,10 +34,9 @@ fun TabScreen(
     modifier: Modifier = Modifier,
     onBack: () -> Unit = {}
 ) {
-
     val tabItem = listOf(
-        MatchTabItem(title = "Previous"),
-        MatchTabItem(title = "Upcoming")
+        MatchTabItem(title = stringResource(id = R.string.finished)),
+        MatchTabItem(title = stringResource(id = R.string.upcoming))
     )
 
     var selectedTabIndex by remember {

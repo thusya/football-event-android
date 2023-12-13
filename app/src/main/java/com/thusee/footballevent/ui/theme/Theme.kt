@@ -10,26 +10,33 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.thusee.footballevent.ui.theme.themecolors.FootballThemeColors
+import com.thusee.footballevent.ui.theme.themecolors.ThemeColors
 
 private val DarkColorScheme = darkColorScheme(
-    primary = DeepGreen,
-    secondary = RichMaroon,
-    tertiary = Pink80,
-    background = BackgroundDark
+    primary = RedPrimary,
+    secondary = RedSecondary,
+    tertiary = DarkGray,
+    background = Black,
+    surface = LighterDarkGray,
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = BrightGreen,
-    secondary = SoftRed,
-    tertiary = Pink40,
-    background = BackgroundLight
+    primary = RedPrimary,
+    secondary = RedSecondary,
+    tertiary = OffWhite,
+    background = White,
+    surface = OffWhite,
+)
 
-    /* Other default colors to override
+/* Other default colors to override
 background = Color(0xFFFFFBFE),
 surface = Color(0xFFFFFBFE),
 onPrimary = Color.White,
@@ -38,7 +45,8 @@ onTertiary = Color.White,
 onBackground = Color(0xFF1C1B1F),
 onSurface = Color(0xFF1C1B1F),
 */
-)
+
+private val LocalColors = staticCompositionLocalOf { FootballThemeColors(ThemeColors.Type.LIGHT) }
 
 @Composable
 fun FootballEventTheme(
@@ -65,11 +73,28 @@ fun FootballEventTheme(
         }
     }
 
-    CompositionLocalProvider(LocalSpacing provides Spacing()) {
+    val colors = if (darkTheme) {
+        FootballThemeColors(ThemeColors.Type.DARK)
+    } else {
+        FootballThemeColors(ThemeColors.Type.LIGHT)
+    }
+
+    CompositionLocalProvider(
+        LocalSpacing provides Spacing(),
+        LocalColors provides colors
+    ) {
         MaterialTheme(
-            colorScheme = colorScheme,
+            colorScheme = colors.material,
             typography = Typography,
             content = content
         )
     }
+}
+
+object AppTheme {
+    val colors: FootballThemeColors
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalColors.current
+
 }

@@ -6,4 +6,6 @@
     <string name="cont_desc_team_logo">Team logo</string>
     <string name="previous_match">Previous Matches</string>
     <string name="upcoming_match">Upcoming Matches</string>
+    <string name="finished">Finished</string>
+    <string name="upcoming">Upcoming</string>
 </resources>
