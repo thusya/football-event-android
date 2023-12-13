@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import com.thusee.footballevent.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +35,7 @@ fun CustomToolbar(
             Text(
                 text = title,
                 style = TextStyle(
-                    fontSize = MaterialTheme.typography.headlineSmall.fontSize,
+                    fontSize = 20.sp,
                     color = Color.White
                 )
             )
