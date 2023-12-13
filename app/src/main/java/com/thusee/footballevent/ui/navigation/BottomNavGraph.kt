@@ -101,7 +101,11 @@ fun NavGraphBuilder.detailsNavGraph(
             val teamId = backStackEntry.arguments?.getString(TEAM_ID) ?: ""
             val teamName = backStackEntry.arguments?.getString(TEAM_NAME) ?: ""
 
-            TeamMatchesDetailsScreen(teamId = teamId, teamName = teamName)
+            TeamMatchesDetailsScreen(
+                teamId = teamId,
+                teamName = teamName,
+                navController = navController
+            )
         }
     }
 }

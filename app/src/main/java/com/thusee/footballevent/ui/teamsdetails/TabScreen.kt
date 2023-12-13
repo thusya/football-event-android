@@ -29,7 +29,8 @@ import com.thusee.footballevent.ui.components.vertical.MatchVerticalList
 fun TabScreen(
     matches: Matches,
     teamName: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBack: () -> Unit = {}
 ) {
 
     val tabItem = listOf(
@@ -60,7 +61,8 @@ fun TabScreen(
         CustomToolbar(
             modifier = Modifier.fillMaxWidth(),
             title = teamName,
-            showBackButton = true
+            showBackButton = true,
+            onBack = onBack
         )
         TabRow(selectedTabIndex = selectedTabIndex) {
             tabItem.forEachIndexed { index, matchTabItem ->

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.utils.UIState
 
@@ -12,7 +13,8 @@ import com.thusee.footballevent.ui.utils.UIState
 fun TeamMatchesDetailsScreen(
     modifier: Modifier = Modifier,
     teamId: String,
-    teamName: String
+    teamName: String,
+    navController: NavController
 ) {
     val viewModel: DetailsViewModel = hiltViewModel()
 
@@ -23,7 +25,8 @@ fun TeamMatchesDetailsScreen(
             is UIState.Success -> {
                 TeamMatchScheduleTabScreen(
                     matches = state.data,
-                    teamName = teamName
+                    teamName = teamName,
+                    navController = navController
                 )
             }
 
@@ -40,9 +43,12 @@ fun TeamMatchesDetailsScreen(
 fun TeamMatchScheduleTabScreen(
     modifier: Modifier = Modifier,
     matches: Matches,
-    teamName: String
+    teamName: String,
+    navController: NavController
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        TabScreen(matches, teamName)
+        TabScreen(matches, teamName) {
+            navController.popBackStack()
+        }
     }
 }
