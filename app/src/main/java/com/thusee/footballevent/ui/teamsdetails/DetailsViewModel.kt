@@ -1,30 +1,36 @@
-package com.thusee.footballevent.ui.matches
+package com.thusee.footballevent.ui.teamsdetails
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
+import com.thusee.footballevent.ui.navigation.TEAM_ID
+import com.thusee.footballevent.ui.navigation.TEAM_NAME
 import com.thusee.footballevent.ui.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MatchesViewModel @Inject constructor(
-    private val matchDataRepository: MatchDataRepository
+class DetailsViewModel @Inject constructor(
+    private val matchDataRepository: MatchDataRepository,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val teamId: String = savedStateHandle.get<String>(TEAM_ID) ?: ""
+    private val teamName: String = savedStateHandle.get<String>(TEAM_NAME) ?: ""
 
     var uiState: MutableState<UIState<Matches>> = mutableStateOf(UIState.Loading)
 
     init {
-        fetchMatches()
+        getMatchesDetailsByTeam(teamId)
     }
 
-    private fun fetchMatches() {
+    private fun getMatchesDetailsByTeam(teamId: String) {
         viewModelScope.launch {
-            val result = matchDataRepository.getMatches()
+            val result = matchDataRepository.getMatchesByTeamId(teamId)
             uiState.value = when {
                 result.isSuccess -> {
                     val matches = result.getOrNull()
@@ -43,4 +49,5 @@ class MatchesViewModel @Inject constructor(
             }
         }
     }
+
 }

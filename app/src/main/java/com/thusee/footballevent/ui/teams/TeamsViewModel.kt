@@ -6,7 +6,6 @@ import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository
 import com.thusee.footballevent.ui.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +24,7 @@ class TeamsViewModel @Inject constructor(
     }
 
     private fun fetchTeams() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             val result = matchDataRepository.getTeams()
             _teamsState.value = when {
                 result.isSuccess && result.getOrNull().isNullOrEmpty() -> UIState.Empty

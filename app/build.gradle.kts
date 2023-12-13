@@ -70,7 +70,7 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.navigation.compose)
 
-    //Timber for logging
+    //Timber
     implementation(libs.jakewharton.timber)
 
     implementation(libs.hilt.android)
@@ -79,6 +79,17 @@ dependencies {
 
     implementation(libs.coil.compose)
 
+    // JUnit5
+    testImplementation(libs.junit.jupiter.api)
+    testImplementation(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.parametrized)
+    androidTestImplementation(libs.junit.jupiter)
+
+    //Coroutines Test
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    // mockk
+    testImplementation(libs.mockk)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

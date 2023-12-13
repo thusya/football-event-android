@@ -15,24 +15,34 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.thusee.footballevent.domain.model.Team
+import com.thusee.footballevent.ui.navigation.DetailsScreen
+import com.thusee.footballevent.ui.navigation.TEAM_ID
+import com.thusee.footballevent.ui.navigation.TEAM_NAME
 import com.thusee.footballevent.ui.utils.UIState
 import timber.log.Timber
 
 @Composable
 fun TeamsScreen(
     modifier: Modifier = Modifier,
-    viewModel: TeamsViewModel = hiltViewModel()
+    viewModel: TeamsViewModel = hiltViewModel(),
+    navController: NavController
 ) {
-
     val teamsState = viewModel.teamsState.collectAsState()
 
     when (val state = teamsState.value) {
         is UIState.Loading -> {}
-        is UIState.Success -> TeamListScreen(state.data, modifier)
+        is UIState.Success -> TeamListScreen(
+            list = state.data,
+            modifier = modifier,
+            navController = navController
+        )
+
         is UIState.Error -> {
             Timber.d("Error ${state.exception.message}")
         }
+
         is UIState.Empty -> {}
     }
 }
@@ -40,12 +50,16 @@ fun TeamsScreen(
 @Composable
 fun TeamListScreen(
     list: List<Team>,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(bottom = 80.dp)
+            .padding(
+                top = 16.dp,
+                bottom = 90.dp
+            )
     ) {
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Fixed(1),
@@ -57,7 +71,22 @@ fun TeamListScreen(
             verticalItemSpacing = 8.dp
         ) {
             items(list) {
-                TeamCardContainer(team = it, onTeamClick = {})
+                TeamCardContainer(
+                    team = it,
+                    onTeamClick = {
+                        navController.navigate(
+                            route = DetailsScreen.TeamMatchesDetails.route
+                                .replace(
+                                    oldValue = "{$TEAM_ID}",
+                                    newValue = it.id
+                                )
+                                .replace(
+                                    oldValue = "{$TEAM_NAME}",
+                                    newValue = it.name
+                                )
+                        )
+                    }
+                )
             }
         }
     }

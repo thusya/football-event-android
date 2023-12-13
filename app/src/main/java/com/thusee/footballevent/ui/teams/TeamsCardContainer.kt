@@ -30,14 +30,14 @@ import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 @Composable
 fun TeamCardContainer(
     team: Team,
-    onTeamClick: (Team) -> Unit,
+    onTeamClick: () -> Unit,
 ) {
     ElevatedCard(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(10.dp)
-            .clickable { onTeamClick(team) },
+            .clickable { onTeamClick() },
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.background
         ),

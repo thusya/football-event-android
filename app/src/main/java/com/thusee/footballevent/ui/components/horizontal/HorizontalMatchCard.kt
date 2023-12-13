@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.matches.components.horizontal
+package com.thusee.footballevent.ui.components.horizontal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -60,7 +60,7 @@ fun HorizontalMatchCard(
             Text(
                 text = match.winner,
                 style = MaterialTheme.typography.titleSmall.copy(
-                    color = Color.Cyan
+                    color = MaterialTheme.colorScheme.primary
                 ),
                 textAlign = TextAlign.Center
             )
@@ -129,12 +129,12 @@ fun HorizontalMatchCard(
 fun PreviewPrevious() {
     HorizontalMatchCard(
         Match(
-        away = "Testq",
-        date = "2022-04-23T18:00:00.000Z",
-        description = "Descriptiojn",
-        highlights = "test highlights",
-        home = "test2 ",
-        winner = "Test1"
-    )
+            away = "Testq",
+            date = "2022-04-23T18:00:00.000Z",
+            description = "Descriptiojn",
+            highlights = "test highlights",
+            home = "test2 ",
+            winner = "Test1"
+        )
     )
 }

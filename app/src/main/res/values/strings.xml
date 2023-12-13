@@ -4,6 +4,6 @@
     <string name="teams_screen_name">Teams</string>
     <string name="matches_screen_name">Matches</string>
     <string name="cont_desc_team_logo">Team logo</string>
-    <string name="previous_match">Previous Match</string>
+    <string name="previous_match">Previous Matches</string>
     <string name="upcoming_match">Upcoming Matches</string>
 </resources>

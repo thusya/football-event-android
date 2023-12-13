@@ -1,4 +1,4 @@
-package com.thusee.footballevent.ui.matches.components.vertical
+package com.thusee.footballevent.ui.components.vertical
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

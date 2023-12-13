@@ -11,5 +11,4 @@ object Utils {
             TeamSplitResult("Team", input)
         }
     }
-
 }
