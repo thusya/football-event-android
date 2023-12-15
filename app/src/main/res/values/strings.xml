@@ -8,4 +8,6 @@
     <string name="upcoming_match">Upcoming Matches</string>
     <string name="finished">Finished</string>
     <string name="upcoming">Upcoming</string>
+    <string name="vs">VS</string>
+    <string name="highlight">Highlights</string>
 </resources>
