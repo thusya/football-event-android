@@ -1,7 +1,6 @@
 package com.thusee.footballevent.domain.model
 
 import androidx.compose.runtime.Stable
-import com.thusee.footballevent.network.model.response.TeamsResponse
 
 @Stable
 data class Team(

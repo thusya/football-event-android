@@ -1,8 +1,6 @@
 package com.thusee.footballevent.domain.model
 
 import androidx.compose.runtime.Stable
-import com.thusee.footballevent.network.model.response.MatchData
-import com.thusee.footballevent.network.model.response.MatchResponse
 
 @Stable
 data class Match(
@@ -12,15 +10,6 @@ data class Match(
     val highlights: String = "",
     val home: String = "",
     val winner: String = "",
-)
-
-fun MatchData.toMatch(): Match = Match(
-    away = away.orEmpty(),
-    date = date.orEmpty(),
-    description = description.orEmpty(),
-    highlights = highlights.orEmpty(),
-    home = home.orEmpty(),
-    winner = winner.orEmpty()
 )
 
 data class Matches(
