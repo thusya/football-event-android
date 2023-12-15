@@ -9,11 +9,3 @@ data class Team(
     val name: String = "",
 )
 
-fun TeamsResponse.toTeams(): List<Team> = teams?.map { teamData ->
-    Team(
-        id = teamData.id.orEmpty(),
-        logo = teamData.logo.orEmpty(),
-        name = teamData.name.orEmpty()
-    )
-} ?: emptyList()
-

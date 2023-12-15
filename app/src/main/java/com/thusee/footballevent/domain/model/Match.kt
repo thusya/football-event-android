@@ -16,13 +16,3 @@ data class Matches(
     @Stable val previous: List<Match> = emptyList(),
     @Stable val upcoming: List<Match> = emptyList(),
 )
-
-fun MatchResponse.toMatches(): Matches {
-    val prevMatches = matches?.previous?.map { it.toMatch() } ?: emptyList()
-    val upMatches = matches?.upcoming?.map { it.toMatch() } ?: emptyList()
-
-    return Matches(
-        previous = prevMatches,
-        upcoming = upMatches
-    )
-}
