@@ -12,10 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thusee.footballevent.R
+import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
-import com.thusee.footballevent.ui.components.horizontal.HorizontalList
+import com.thusee.footballevent.ui.components.horizontal.HorizontalMatchList
 import com.thusee.footballevent.ui.components.vertical.VerticalMatchCard
 
 @Composable
@@ -38,7 +40,7 @@ fun NestedScrollingView(
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            HorizontalList(matches.previous)
+            HorizontalMatchList(matches.previous)
 
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -51,4 +53,20 @@ fun NestedScrollingView(
             VerticalMatchCard(match = it)
         }
     }
+}
+
+@Preview
+@Composable
+fun NestedScrollingViewPreview() {
+    NestedScrollingView(
+        Matches(
+            previous = listOf(
+                Match("Team A", "2022-04-24T18:00:00.000Z", "Description 1", "Highlights 1", "Team B", "Team A"),
+                Match("Team C", "2022-04-24T18:00:00.000Z", "Description 2", "Highlights 2", "Team D", "Team C")
+            ),
+            upcoming = listOf(
+                Match("Team E", "2022-04-24T18:00:00.000Z", "Description 3", "Highlights 3", "Team F", "Team E")
+            )
+        )
+    )
 }
