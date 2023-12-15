@@ -7,15 +7,15 @@ import com.thusee.footballevent.network.repository.FootballDataRemote
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class FootballDataRemoteImplTest {
     private lateinit var footballDataRemote: FootballDataRemote
     private val apiService = mockk<ApiService>(relaxed = true)
 
-    @Before
+    @BeforeEach
     fun setUp() {
         val teamsResponseMock = TeamsResponse()
         coEvery { apiService.getTeamData() } returns teamsResponseMock

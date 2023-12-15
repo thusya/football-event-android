@@ -14,9 +14,9 @@ import com.thusee.footballevent.network.repository.FootballDataRemote
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class MatchDataRepositoryImplTest {
     private lateinit var matchDataRepo: MatchDataRepository
@@ -40,7 +40,7 @@ class MatchDataRepositoryImplTest {
         )
     )
 
-    @Before
+    @BeforeEach
     fun before() {
         val footBallDataRemote = mockk<FootballDataRemote>(relaxed = true)
 

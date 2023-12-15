@@ -2,6 +2,7 @@ package com.thusee.footballevent.network.di
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.thusee.footballevent.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,8 +21,9 @@ object RetrofitServiceModule {
 
     @FootballEventApi
     @Provides
-    fun provideFootballEventApi() = "https://jmde6xvjr4.execute-api.us-east-1.amazonaws.com"
-
+    fun provideFootballEventApi(): String {
+        return BuildConfig.API_BASE_URL
+    }
     @Provides
     fun provideMoshi(): Moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -32,23 +34,33 @@ object RetrofitServiceModule {
 
     @Provides
     @Singleton
-    fun provideRetrofitBuilder(
-        moshiConverterFactory: MoshiConverterFactory,
-        @FootballEventApi baseUrl: String,
-    ): Retrofit {
-        val httpLoggingInterceptor = HttpLoggingInterceptor{ message ->
-                Timber.d("ApiService $message")
+    fun provideOkHttpClient(): OkHttpClient {
+        val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.d("ApiService $message")
         }.apply {
-            level = HttpLoggingInterceptor.Level.BODY
+            level = if (BuildConfig.DEBUG) {
+                HttpLoggingInterceptor.Level.BODY
+            } else {
+                HttpLoggingInterceptor.Level.NONE
+            }
         }
 
-        val okHttpClient = OkHttpClient.Builder()
+        return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
+    }
 
+    @Provides
+    @Singleton
+    fun provideRetrofitBuilder(
+        moshiConverterFactory: MoshiConverterFactory,
+        @FootballEventApi baseUrl: String,
+        okHttpClient: OkHttpClient
+    ): Retrofit {
+        Timber.d("Base URL: $baseUrl")
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(moshiConverterFactory)

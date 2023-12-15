@@ -18,7 +18,19 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                type = "String",
+                name = "API_BASE_URL",
+                value =  "\"${project.properties["baseUrl"]}\""
+            )
+        }
         release {
+            buildConfigField(
+                type = "String",
+                name = "API_BASE_URL",
+                value =  "\"${project.properties["baseUrl"]}\""
+            )
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -33,6 +45,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KaptGenerateStubs> {

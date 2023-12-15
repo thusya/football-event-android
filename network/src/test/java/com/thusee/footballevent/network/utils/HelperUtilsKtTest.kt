@@ -2,9 +2,9 @@ package com.thusee.footballevent.network.utils
 
 import io.mockk.coEvery
 import io.mockk.mockk
-import junit.framework.TestCase
 import kotlinx.coroutines.test.runTest
-import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class HelperUtilsKtTest {
 
@@ -16,8 +16,8 @@ class HelperUtilsKtTest {
 
         val result = handleRequest(requestFunc)
 
-        TestCase.assertTrue(result.isSuccess)
-        TestCase.assertEquals(expectedValue, result.getOrNull())
+        Assertions.assertTrue(result.isSuccess)
+        Assertions.assertEquals(expectedValue, result.getOrNull())
     }
 
     @Test
@@ -28,6 +28,6 @@ class HelperUtilsKtTest {
 
         val result = handleRequest(requestFunc)
 
-        TestCase.assertTrue(result.isFailure)
+        Assertions.assertTrue(result.isFailure)
     }
 }
