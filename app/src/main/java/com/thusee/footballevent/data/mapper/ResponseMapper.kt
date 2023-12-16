@@ -1,4 +1,4 @@
-package com.thusee.footballevent.data.repository.mapper
+package com.thusee.footballevent.data.mapper
 
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches

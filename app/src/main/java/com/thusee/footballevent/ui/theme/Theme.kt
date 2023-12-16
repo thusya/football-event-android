@@ -21,21 +21,16 @@ import com.thusee.footballevent.ui.theme.themecolors.FootballThemeColors
 import com.thusee.footballevent.ui.theme.themecolors.ThemeColors
 
 private val DarkColorScheme = darkColorScheme(
-    primary = RedPrimary,
-    secondary = RedSecondary,
-    tertiary = DarkGray,
-    background = Black,
-    surface = LighterDarkGray,
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = RedPrimary,
-    secondary = RedSecondary,
-    tertiary = OffWhite,
-    background = White,
-    surface = OffWhite,
+    primary = Purple40,
+    secondary = PurpleGrey40,
+    tertiary = Pink40
 )
-
 /* Other default colors to override
 background = Color(0xFFFFFBFE),
 surface = Color(0xFFFFFBFE),

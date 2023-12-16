@@ -9,10 +9,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,15 +27,12 @@ fun CustomToolbar(
 ) {
     TopAppBar(
         modifier = modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-        ),
         title = {
             Text(
                 text = title,
                 style = TextStyle(
                     fontSize = 20.sp,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             )
         },
@@ -46,6 +41,7 @@ fun CustomToolbar(
                 IconButton(onClick = onBack) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
                         contentDescription = stringResource(id = R.string.cont_desc_back_arrow)
                     )
                 }

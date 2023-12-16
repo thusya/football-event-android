@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -30,23 +30,33 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
+import com.thusee.footballevent.ui.theme.WonByTextStyle
 import com.thusee.footballevent.ui.utils.DateUtils
+import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 
 @Composable
 fun HorizontalMatchCard(
     match: Match,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isFromDetails: Boolean = false
 ) {
     val (formattedTime, formattedDate) = remember {
         DateUtils.convertDateTime(match.date)
     }
+    val configuration = LocalConfiguration.current
+    val width = if (isFromDetails) {
+        Modifier.width(configuration.screenWidthDp.times(.8).dp)
+    } else {
+        Modifier.fillMaxWidth()
+    }
+
     ElevatedCard(
         modifier = modifier
-            .fillMaxWidth()
-            .height(220.dp)
-            .padding(horizontal = 20.dp, vertical = 10.dp),
+            .then(width)
+            .height(200.dp)
+            .padding(horizontal = 16.dp, vertical = 10.dp),
         colors = CardDefaults.elevatedCardColors(
-            containerColor = Color.White
+            containerColor = MaterialTheme.colorScheme.inverseOnSurface
         ),
         shape = RoundedCornerShape(30.dp),
         elevation = CardDefaults.elevatedCardElevation(
@@ -56,7 +66,7 @@ fun HorizontalMatchCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 16.dp),
+                .padding(horizontal = 10.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -68,7 +78,7 @@ fun HorizontalMatchCard(
                     Text(
                         text = match.home,
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight(600)
                         ),
                         textAlign = TextAlign.Center,
@@ -78,7 +88,7 @@ fun HorizontalMatchCard(
                     Text(
                         text = stringResource(id = R.string.vs),
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight(700)
                         ),
                         modifier = Modifier
@@ -89,7 +99,7 @@ fun HorizontalMatchCard(
                     Text(
                         text = match.away,
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color.Black,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight(600)
                         ),
                         textAlign = TextAlign.Center,
@@ -108,6 +118,7 @@ fun HorizontalMatchCard(
                         text = formattedDate,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontStyle = FontStyle.Normal
                         ),
                         textAlign = TextAlign.Center
@@ -117,6 +128,7 @@ fun HorizontalMatchCard(
                         text = formattedTime,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 13.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontStyle = FontStyle.Normal
                         ),
                         textAlign = TextAlign.Center
@@ -128,13 +140,34 @@ fun HorizontalMatchCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = "Won by: Team Name")
+                if (match.winner.isNotEmpty()) {
+                    WonBySpannedText(splitStringIfStartsWithTeam(match.winner).remainingString)
+                }
                 Spacer(modifier = Modifier.width(16.dp))
                 Button(onClick = { }) {
                     Text(text = stringResource(id = R.string.highlight))
                 }
             }
         }
+    }
+}
+
+@Composable
+fun WonBySpannedText(teamName: String) {
+    Column {
+        Text(
+            text = stringResource(id = R.string.won_by),
+            style = MaterialTheme.typography.WonByTextStyle.copy(
+                fontSize = 13.sp,
+                fontWeight = FontWeight(500),
+                color = MaterialTheme.colorScheme.onBackground
+            ),
+        )
+
+        Text(
+            text = teamName,
+            style = MaterialTheme.typography.WonByTextStyle
+        )
     }
 }
 
@@ -151,4 +184,10 @@ fun PreviewPrevious() {
             winner = "Test1"
         )
     )
+}
+
+@Preview
+@Composable
+fun PreviewWonBySpannedText() {
+    WonBySpannedText(teamName = "Team Name")
 }

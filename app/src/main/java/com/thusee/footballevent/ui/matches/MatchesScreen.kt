@@ -21,12 +21,11 @@ fun MatchesScreen(
     viewModel: MatchesViewModel = hiltViewModel()
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        val state = viewModel.uiState.value
 
-        when (state) {
+        when (val state = viewModel.uiState.value) {
             is UIState.Loading -> LottieLoadingAnimation()
             is UIState.Success -> {
-                MatchesList(state.data)
+                MatchesList(modifier = modifier, matches = state.data)
             }
 
             is UIState.Error -> {
@@ -43,9 +42,12 @@ fun MatchesScreen(
 }
 
 @Composable
-fun MatchesList(matches: Matches) {
+fun MatchesList(
+    modifier: Modifier = Modifier,
+    matches: Matches
+) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(
                 top = 16.dp,
@@ -53,6 +55,6 @@ fun MatchesList(matches: Matches) {
             )
             .background(MaterialTheme.colorScheme.background)
     ) {
-        NestedScrollingView(matches)
+        NestedScrollingView(modifier, matches)
     }
 }

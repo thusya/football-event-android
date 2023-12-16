@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.thusee.footballevent.ui.navigation.BottomBarScreen
 import com.thusee.footballevent.ui.theme.FootballEventTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,14 +32,25 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FootballEventTheme {
+                SetBarColor(color = MaterialTheme.colorScheme.background)
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
                 ) {
                     BottomBarScreen()
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun SetBarColor(color: androidx.compose.ui.graphics.Color) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setStatusBarColor(
+            color = color
+        )
     }
 }
 

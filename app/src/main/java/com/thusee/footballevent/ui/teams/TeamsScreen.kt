@@ -63,7 +63,7 @@ fun TeamListScreen(
         modifier = modifier
             .fillMaxSize()
             .padding(
-                top = 16.dp,
+                top = 30.dp,
                 bottom = 90.dp
             )
     ) {

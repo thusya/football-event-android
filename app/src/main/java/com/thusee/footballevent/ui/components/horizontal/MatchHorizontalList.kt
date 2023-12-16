@@ -7,10 +7,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.thusee.footballevent.domain.model.Match
 
 @Composable
-fun HorizontalMatchList(matchList: List<Match>) {
+fun HorizontalMatchList(
+    matchList: List<Match>,
+    isFromDetails: Boolean = false
+) {
     LazyRow(content = {
         items(matchList) { match ->
-            HorizontalMatchCard(match)
+            HorizontalMatchCard(
+                match = match,
+                isFromDetails = isFromDetails
+            )
         }
     })
 }
@@ -20,8 +26,22 @@ fun HorizontalMatchList(matchList: List<Match>) {
 fun HorizontalListPreview() {
     HorizontalMatchList(
         matchList = listOf(
-            Match("Team A", "2022-04-24T18:00:00.000Z", "Description 1", "Highlights 1", "Team B", "Team A"),
-            Match("Team C", "2022-04-24T18:00:00.000Z", "Description 2", "Highlights 2", "Team D", "Team C")
+            Match(
+                "Team A",
+                "2022-04-24T18:00:00.000Z",
+                "Description 1",
+                "Highlights 1",
+                "Team B",
+                "Team A"
+            ),
+            Match(
+                "Team C",
+                "2022-04-24T18:00:00.000Z",
+                "Description 2",
+                "Highlights 2",
+                "Team D",
+                "Team C"
+            )
         )
     )
 }

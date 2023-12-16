@@ -22,10 +22,12 @@ import com.thusee.footballevent.ui.components.vertical.VerticalMatchCard
 
 @Composable
 fun NestedScrollingView(
-    matches: Matches
+    modifier: Modifier = Modifier,
+    matches: Matches,
+    isFromDetails: Boolean = false
 ) {
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
             .background(MaterialTheme.colorScheme.background)
@@ -40,7 +42,7 @@ fun NestedScrollingView(
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            HorizontalMatchList(matches.previous)
+            HorizontalMatchList(matches.previous, isFromDetails)
 
             Spacer(modifier = Modifier.height(16.dp))
             Text(
@@ -59,6 +61,7 @@ fun NestedScrollingView(
 @Composable
 fun NestedScrollingViewPreview() {
     NestedScrollingView(
+        modifier = Modifier,
         Matches(
             previous = listOf(
                 Match("Team A", "2022-04-24T18:00:00.000Z", "Description 1", "Highlights 1", "Team B", "Team A"),

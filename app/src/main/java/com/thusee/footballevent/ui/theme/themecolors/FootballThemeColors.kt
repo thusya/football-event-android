@@ -4,53 +4,36 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
-import com.thusee.footballevent.ui.theme.Black
-import com.thusee.footballevent.ui.theme.DarkGray
-import com.thusee.footballevent.ui.theme.LighterDarkGray
-import com.thusee.footballevent.ui.theme.OffWhite
-import com.thusee.footballevent.ui.theme.RedPrimary
-import com.thusee.footballevent.ui.theme.RedSecondary
-import com.thusee.footballevent.ui.theme.White
+import com.thusee.footballevent.ui.theme.Pink40
+import com.thusee.footballevent.ui.theme.Pink80
+import com.thusee.footballevent.ui.theme.Purple40
+import com.thusee.footballevent.ui.theme.Purple80
+import com.thusee.footballevent.ui.theme.PurpleGrey40
+import com.thusee.footballevent.ui.theme.PurpleGrey80
 
 private val DarkColorScheme = darkColorScheme(
-    primary = RedPrimary,
-    secondary = RedSecondary,
-    tertiary = DarkGray,
-    background = Black,
-    surface = LighterDarkGray,
+    primary = Purple80,
+    secondary = PurpleGrey80,
+    tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = RedPrimary,
-    secondary = RedSecondary,
-    tertiary = OffWhite,
-    background = White,
-    surface = OffWhite,
+    primary = Purple40,
+    secondary = PurpleGrey40,
+    tertiary = Pink40
 )
 
 class FootballThemeColors(type: Type) : ThemeColors(type = type) {
     val material: ColorScheme = if (type == Type.LIGHT) LightColorScheme else DarkColorScheme
 
-    val defaultBackground: Color by color(
-        light = AppColors.White,
-        dark = AppColors.Black,
-    )
-    val cardBackground: Color by color(
-        dark = AppColors.DarkGray,
-        light = AppColors.Grey200,
-    )
-    val highlightBackground: Color by color(
-        light = AppColors.Red800,
-        dark = AppColors.Red800,
-    )
-    val highlightTextColor: Color by color(
-        light = AppColors.White,
-        dark = AppColors.White,
+    val orangeTextColor: Color by color(
+        light = AppColors.Orange,
+        dark = AppColors.Orange,
     )
 
-    val defaultTextColor: Color by color(
-        light = AppColors.Black,
-        dark = AppColors.White,
+    val greenTextColor: Color by color(
+        light = AppColors.Green,
+        dark = AppColors.Green,
     )
 
 }

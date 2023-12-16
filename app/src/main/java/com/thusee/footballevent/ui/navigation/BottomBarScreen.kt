@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination
@@ -28,6 +27,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.thusee.footballevent.ui.theme.Orange
 import com.thusee.footballevent.ui.theme.spacing
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -64,7 +64,7 @@ fun BottomBar(navController: NavHostController) {
         exit = fadeOut(animationSpec = tween(700)),
         content = {
             NavigationBar(
-                containerColor = MaterialTheme.colorScheme.primary,
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
             ) {
                 screens.forEach { screen ->
                     AddItem(
@@ -105,10 +105,11 @@ fun RowScope.AddItem(
         selected = selected,
 
         colors = NavigationBarItemDefaults.colors(
-            selectedTextColor = Color.White,
-            selectedIconColor = Color.White,
-            unselectedTextColor = MaterialTheme.colorScheme.background,
-            indicatorColor = MaterialTheme.colorScheme.primary
+            selectedTextColor = Orange,
+            selectedIconColor = Orange,
+            unselectedIconColor = MaterialTheme.colorScheme.secondary,
+            unselectedTextColor = MaterialTheme.colorScheme.secondary,
+            indicatorColor = MaterialTheme.colorScheme.inverseOnSurface
         ),
         onClick = {
             navController.navigate(screen.route) {

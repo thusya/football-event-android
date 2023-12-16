@@ -1,6 +1,8 @@
 package com.thusee.footballevent.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,3 +34,10 @@ val Typography = Typography(
     )
     */
 )
+val Typography.WonByTextStyle: TextStyle
+        @Composable
+        get() = TextStyle(
+                fontSize = 17.sp,
+                fontWeight = FontWeight(700),
+                color = Color(0xFF5EB95E)
+        )

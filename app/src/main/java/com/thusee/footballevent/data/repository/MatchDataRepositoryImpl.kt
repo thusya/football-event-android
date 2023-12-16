@@ -1,7 +1,7 @@
 package com.thusee.footballevent.data.repository
 
-import com.thusee.footballevent.data.repository.mapper.toMatches
-import com.thusee.footballevent.data.repository.mapper.toTeams
+import com.thusee.footballevent.data.mapper.toMatches
+import com.thusee.footballevent.data.mapper.toTeams
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository

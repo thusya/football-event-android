@@ -103,6 +103,8 @@ dependencies {
     implementation(libs.squareup.retrofit)
     implementation(libs.converter.moshi)
 
+    implementation(libs.accompanist.systemuicontroller)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

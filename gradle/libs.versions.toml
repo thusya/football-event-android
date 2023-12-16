@@ -1,4 +1,5 @@
 [versions]
+accompanist-systemuicontroller = "0.32.0"
 agp = "8.2.0"
 kotlin = "1.9.21"
 core-ktx = "1.12.0"
@@ -30,6 +31,7 @@ android-target-sdk = "34"
 androidx-compose-kotlin-compiler = "1.5.6"
 
 [libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-systemuicontroller" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
@@ -64,7 +66,7 @@ junit-jupiter-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engi
 junit-jupiter-parametrized = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "junit-jupiter" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-test" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
-airbnb-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "airbnb-android-lottie" }
+airbnb-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "airbnb-android-lottie" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
