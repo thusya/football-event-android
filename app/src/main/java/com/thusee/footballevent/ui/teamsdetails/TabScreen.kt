@@ -20,7 +20,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import com.thusee.footballevent.R
+import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.CustomToolbar
 import com.thusee.footballevent.ui.components.horizontal.HorizontalMatchCard
@@ -97,4 +99,22 @@ fun TabScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun TabScreenPreview() {
+    TabScreen(
+        matches = Matches(
+            previous = listOf(
+                Match("Team A", "2023-01-01", "Description 1", "Highlights 1", "Team B", "Team A"),
+                Match("Team A", "2023-02-01", "Description 2", "Highlights 2", "Team D", "Team C")
+            ),
+            upcoming = listOf(
+                Match("Team A", "2023-03-01", "Description 3", "Highlights 3", "Team F", "Team E")
+            )
+        ),
+        teamName = "Team A"
+    )
+
 }

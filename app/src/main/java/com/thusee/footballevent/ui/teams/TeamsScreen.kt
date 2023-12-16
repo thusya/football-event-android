@@ -13,9 +13,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.ui.components.ErrorScreen
 import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
@@ -96,4 +98,16 @@ fun TeamListScreen(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun TeamsScreenPreview() {
+    TeamListScreen(
+        list = listOf(
+            Team("Team A"),
+            Team("Team B")
+        ),
+        navController = rememberNavController(),
+    )
 }
