@@ -38,7 +38,9 @@ fun NestedScrollingView(
                     .fillMaxSize()
                     .padding(top = 16.dp),
                 text = stringResource(R.string.previous_match),
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    color = MaterialTheme.colorScheme.onBackground
+                )
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -47,7 +49,9 @@ fun NestedScrollingView(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.upcoming_match),
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineSmall.copy(
+                    color = MaterialTheme.colorScheme.onBackground
+                )
             )
             Spacer(modifier = Modifier.height(16.dp))
         }

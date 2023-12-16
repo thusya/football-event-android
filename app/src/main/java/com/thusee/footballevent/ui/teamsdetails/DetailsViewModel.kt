@@ -30,20 +30,13 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch {
             val result = matchDataRepository.getMatchesByTeamId(teamId)
             uiState.value = when {
-                result.isSuccess -> {
-                    val matches = result.getOrNull()
-                    if (matches == null) {
-                        UIState.Empty
-                    } else {
-                        UIState.Success(matches)
-                    }
-                }
-
+                result.isSuccess && result.getOrDefault(Matches()) == Matches() -> UIState.Empty
+                result.isSuccess -> UIState.Success(result.getOrDefault(Matches()))
                 result.isFailure -> UIState.Error(
                     result.exceptionOrNull() ?: Exception("Unknown error")
                 )
 
-                else -> UIState.Error(Exception("Error fetching matches"))
+                else -> UIState.Error(result.exceptionOrNull() ?: Exception("Unknown error"))
             }
         }
     }

@@ -86,13 +86,13 @@ fun TabScreen(
                 modifier = Modifier.fillMaxSize()
             ) {
                 if (index == 0) {
-                    MatchVerticalList(matches.previous)
-                } else {
                     LazyColumn(content = {
-                        items(matches.upcoming) { match ->
+                        items(matches.previous) { match ->
                             HorizontalMatchCard(match = match)
                         }
                     })
+                } else {
+                    MatchVerticalList(matches.upcoming)
                 }
             }
         }

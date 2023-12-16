@@ -24,6 +24,7 @@ import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.ui.theme.Green
 import com.thusee.footballevent.ui.theme.Orange
 import com.thusee.footballevent.ui.utils.DateUtils.convertDateTime
+import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 
 @Composable
 fun VerticalMatchCardDetails(
@@ -47,7 +48,7 @@ fun VerticalMatchCardDetails(
         ) {
             MatchDetailCardColumn(
                 stringResource(id = R.string.home),
-                match.home
+                splitStringIfStartsWithTeam(match.home).remainingString
             )
         }
 
@@ -79,8 +80,8 @@ fun VerticalMatchCardDetails(
                 .weight(1f),
         ) {
             MatchDetailCardColumn(
-                stringResource(id = R.string.away),
-                match.away
+                title = stringResource(id = R.string.away),
+                teamName = splitStringIfStartsWithTeam(match.away).remainingString
             )
         }
     }
@@ -104,7 +105,9 @@ fun MatchDetailCardColumn(
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
+
         Spacer(modifier = Modifier.padding(top = 8.dp))
+
         Text(
             text = teamName,
             style = MaterialTheme.typography.titleSmall.copy(

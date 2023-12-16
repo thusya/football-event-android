@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +16,10 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -30,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
+import com.thusee.footballevent.ui.components.VideoPlayerScreen
 import com.thusee.footballevent.ui.theme.WonByTextStyle
 import com.thusee.footballevent.ui.utils.DateUtils
 import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
@@ -43,17 +46,21 @@ fun HorizontalMatchCard(
     val (formattedTime, formattedDate) = remember {
         DateUtils.convertDateTime(match.date)
     }
+
     val configuration = LocalConfiguration.current
     val width = if (isFromDetails) {
-        Modifier.width(configuration.screenWidthDp.times(.8).dp)
+        Modifier.width(configuration.screenWidthDp.times(.9).dp)
     } else {
         Modifier.fillMaxWidth()
+    }
+
+    var openVideoPlayer by remember {
+        mutableStateOf(false)
     }
 
     ElevatedCard(
         modifier = modifier
             .then(width)
-            .height(200.dp)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         colors = CardDefaults.elevatedCardColors(
             containerColor = MaterialTheme.colorScheme.inverseOnSurface
@@ -66,7 +73,7 @@ fun HorizontalMatchCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 10.dp, vertical = 16.dp),
+                .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
@@ -76,7 +83,7 @@ fun HorizontalMatchCard(
             ) {
                 Column {
                     Text(
-                        text = match.home,
+                        text = splitStringIfStartsWithTeam(match.home).remainingString,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight(600)
@@ -84,7 +91,9 @@ fun HorizontalMatchCard(
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(4.dp)
                     )
+
                     Spacer(modifier = Modifier.width(4.dp))
+
                     Text(
                         text = stringResource(id = R.string.vs),
                         style = MaterialTheme.typography.bodyMedium.copy(
@@ -95,9 +104,11 @@ fun HorizontalMatchCard(
                             .padding(4.dp)
                             .align(Alignment.CenterHorizontally)
                     )
+
                     Spacer(modifier = Modifier.width(4.dp))
+
                     Text(
-                        text = match.away,
+                        text = splitStringIfStartsWithTeam(match.away).remainingString,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
                             fontWeight = FontWeight(600)
@@ -106,13 +117,17 @@ fun HorizontalMatchCard(
                         modifier = Modifier.padding(4.dp)
                     )
                 }
+
                 Spacer(modifier = Modifier.width(32.dp))
+
                 Divider(
                     modifier = Modifier
-                        .fillMaxHeight(0.5f)
+                        .height(50.dp)
                         .width(1.dp)
                 )
+
                 Spacer(modifier = Modifier.width(32.dp))
+
                 Column {
                     Text(
                         text = formattedDate,
@@ -123,7 +138,9 @@ fun HorizontalMatchCard(
                         ),
                         textAlign = TextAlign.Center
                     )
+
                     Spacer(modifier = Modifier.height(8.dp))
+
                     Text(
                         text = formattedTime,
                         style = MaterialTheme.typography.bodyMedium.copy(
@@ -135,20 +152,30 @@ fun HorizontalMatchCard(
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                if (match.winner.isNotEmpty()) {
+            if (match.winner.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+
                     WonBySpannedText(splitStringIfStartsWithTeam(match.winner).remainingString)
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                Button(onClick = { }) {
-                    Text(text = stringResource(id = R.string.highlight))
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    Button(onClick = { openVideoPlayer = true }) {
+                        Text(text = stringResource(id = R.string.highlight))
+                    }
                 }
             }
         }
+    }
+    if (openVideoPlayer) VideoPlayerScreen(
+        videoUri = match.highlights,
+        videoDescription = match.description
+    ) {
+        openVideoPlayer = false
     }
 }
 
