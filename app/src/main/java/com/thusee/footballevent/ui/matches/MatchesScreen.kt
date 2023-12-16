@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.thusee.footballevent.domain.model.Matches
+import com.thusee.footballevent.ui.components.ErrorScreen
 import com.thusee.footballevent.ui.components.NestedScrollingView
+import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
 import com.thusee.footballevent.ui.utils.UIState
 
 @Composable
@@ -22,12 +24,16 @@ fun MatchesScreen(
         val state = viewModel.uiState.value
 
         when (state) {
-            is UIState.Loading -> {}
+            is UIState.Loading -> LottieLoadingAnimation()
             is UIState.Success -> {
                 MatchesList(state.data)
             }
 
             is UIState.Error -> {
+                ErrorScreen(
+                    exception = state.exception,
+                    modifier = modifier
+                )
                 "errorMessage = ${state.exception.message}"
             }
 

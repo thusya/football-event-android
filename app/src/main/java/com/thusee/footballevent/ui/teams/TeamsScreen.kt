@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thusee.footballevent.domain.model.Team
+import com.thusee.footballevent.ui.components.ErrorScreen
+import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
 import com.thusee.footballevent.ui.navigation.DetailsScreen
 import com.thusee.footballevent.ui.navigation.TEAM_ID
 import com.thusee.footballevent.ui.navigation.TEAM_NAME
@@ -32,7 +34,7 @@ fun TeamsScreen(
     val teamsState = viewModel.teamsState.collectAsState()
 
     when (val state = teamsState.value) {
-        is UIState.Loading -> {}
+        is UIState.Loading -> LottieLoadingAnimation()
         is UIState.Success -> TeamListScreen(
             list = state.data,
             modifier = modifier,
@@ -40,6 +42,10 @@ fun TeamsScreen(
         )
 
         is UIState.Error -> {
+            ErrorScreen(
+                exception = state.exception,
+                modifier = modifier
+            )
             Timber.d("Error ${state.exception.message}")
         }
 

@@ -97,6 +97,12 @@ dependencies {
     // mockk
     testImplementation(libs.mockk)
 
+    // Lottie
+    implementation(libs.airbnb.lottie.compose)
+
+    implementation(libs.squareup.retrofit)
+    implementation(libs.converter.moshi)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

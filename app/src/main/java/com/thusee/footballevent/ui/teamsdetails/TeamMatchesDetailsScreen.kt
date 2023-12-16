@@ -7,21 +7,21 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thusee.footballevent.domain.model.Matches
+import com.thusee.footballevent.ui.components.ErrorScreen
+import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
 import com.thusee.footballevent.ui.utils.UIState
 
 @Composable
 fun TeamMatchesDetailsScreen(
     modifier: Modifier = Modifier,
-    teamId: String,
     teamName: String,
     navController: NavController
 ) {
     val viewModel: DetailsViewModel = hiltViewModel()
 
     Box(modifier = modifier.fillMaxSize()) {
-
         when (val state = viewModel.uiState.value) {
-            is UIState.Loading -> {}
+            is UIState.Loading -> LottieLoadingAnimation()
             is UIState.Success -> {
                 TeamMatchScheduleTabScreen(
                     matches = state.data,
@@ -31,6 +31,10 @@ fun TeamMatchesDetailsScreen(
             }
 
             is UIState.Error -> {
+                ErrorScreen(
+                    exception = state.exception,
+                    modifier = modifier
+                )
                 "errorMessage = ${state.exception.message}"
             }
 
