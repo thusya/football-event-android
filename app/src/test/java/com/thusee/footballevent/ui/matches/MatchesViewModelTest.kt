@@ -3,40 +3,22 @@ package com.thusee.footballevent.ui.matches
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
+import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import com.thusee.footballevent.ui.utils.UIState
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@ExtendWith(MainCoroutineExtension::class)
 class MatchesViewModelTest {
     private val matchDataRepository: MatchDataRepository = mockk(relaxed = true)
     private lateinit var matchesViewModel: MatchesViewModel
 
-    private val testDispatcher = UnconfinedTestDispatcher()
-
-    @BeforeEach
-    fun setUp() {
-        Dispatchers.setMain(testDispatcher)
-    }
-
-    @AfterEach
-    fun tearDown() {
-        Dispatchers.resetMain()
-    }
-
     @Test
     fun `fetchMatches with success should update uiState to Success`() = runTest {
-
         val mockMatches = Matches(
             previous = listOf(
                 Match("Team A", "2023-01-01", "Description 1", "Highlights 1", "Team B", "Team A"),
@@ -50,18 +32,17 @@ class MatchesViewModelTest {
 
         matchesViewModel = MatchesViewModel(matchDataRepository)
 
-        assertEquals(UIState.Success(mockMatches), matchesViewModel.uiState.value)
+        assertEquals(UIState.Success(mockMatches), matchesViewModel.uiState)
     }
 
     @Test
     fun `fetchMatches with empty result should update uiState to Empty`() = runTest {
-
         val emptyMatches = Matches()
         coEvery { matchDataRepository.getMatches() } returns Result.success(emptyMatches)
 
         matchesViewModel = MatchesViewModel(matchDataRepository)
 
-        assertEquals(UIState.Empty, matchesViewModel.uiState.value)
+        assertEquals(UIState.Empty, matchesViewModel.uiState)
     }
 
     @Test
@@ -71,6 +52,6 @@ class MatchesViewModelTest {
 
         matchesViewModel = MatchesViewModel(matchDataRepository)
 
-        assertEquals(UIState.Error(error), matchesViewModel.uiState.value)
+        assertEquals(UIState.Error(error), matchesViewModel.uiState)
     }
 }

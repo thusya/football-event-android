@@ -1,7 +1,8 @@
 package com.thusee.footballevent.ui.teamsdetails
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,7 +21,8 @@ class DetailsViewModel @Inject constructor(
 ) : ViewModel() {
     private val teamId: String = savedStateHandle.get<String>(TEAM_ID) ?: ""
 
-    var uiState: MutableState<UIState<Matches>> = mutableStateOf(UIState.Loading)
+    var uiState by mutableStateOf<UIState<Matches>>(UIState.Loading)
+        private set
 
     init {
         getMatchesDetailsByTeam(teamId)
@@ -29,7 +31,7 @@ class DetailsViewModel @Inject constructor(
     private fun getMatchesDetailsByTeam(teamId: String) {
         viewModelScope.launch {
             val result = matchDataRepository.getMatchesByTeamId(teamId)
-            uiState.value = when {
+            uiState = when {
                 result.isSuccess && result.getOrDefault(Matches()) == Matches() -> UIState.Empty
                 result.isSuccess -> UIState.Success(result.getOrDefault(Matches()))
                 result.isFailure -> UIState.Error(

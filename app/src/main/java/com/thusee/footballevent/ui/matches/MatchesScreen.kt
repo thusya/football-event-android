@@ -22,7 +22,7 @@ fun MatchesScreen(
 ) {
     Box(modifier = modifier.fillMaxSize()) {
 
-        when (val state = viewModel.uiState.value) {
+        when (val state = viewModel.uiState) {
             is UIState.Loading -> LottieLoadingAnimation()
             is UIState.Success -> {
                 MatchesList(modifier = modifier, matches = state.data)

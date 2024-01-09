@@ -20,7 +20,7 @@ fun TeamMatchesDetailsScreen(
     val viewModel: DetailsViewModel = hiltViewModel()
 
     Box(modifier = modifier.fillMaxSize()) {
-        when (val state = viewModel.uiState.value) {
+        when (val state = viewModel.uiState) {
             is UIState.Loading -> LottieLoadingAnimation()
             is UIState.Success -> {
                 TeamMatchScheduleTabScreen(
