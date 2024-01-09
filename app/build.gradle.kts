@@ -80,8 +80,10 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.media3.exoplayer)
     kapt(libs.hilt.android.compiler)
+
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
 
     implementation(libs.coil.compose)
 
@@ -100,10 +102,6 @@ dependencies {
 
     // Lottie
     implementation(libs.airbnb.lottie.compose)
-
-    implementation(libs.exoplayer.core)
-    implementation(libs.exoplayer.ui)
-    implementation(libs.androidx.media)
 
     implementation(libs.squareup.retrofit)
     implementation(libs.converter.moshi)

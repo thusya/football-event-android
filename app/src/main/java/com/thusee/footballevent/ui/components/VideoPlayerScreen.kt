@@ -1,8 +1,6 @@
 package com.thusee.footballevent.ui.components
 
 import android.net.Uri
-import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -30,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 
 @Composable
 fun VideoPlayerScreen(
@@ -40,12 +38,9 @@ fun VideoPlayerScreen(
     videoDescription: String,
     onDismiss: () -> Unit
 ) {
-    Dialog(
-        onDismissRequest = { onDismiss() }
-    ) {
+    Dialog(onDismissRequest = { onDismiss() }) {
         Surface(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             shadowElevation = 4.dp,
             border = BorderStroke(5.dp, Color.Transparent)
         ) {
@@ -67,34 +62,28 @@ fun VideoPlayerScreen(
                     val context = LocalContext.current
                     val exoPlayer = remember {
                         ExoPlayer.Builder(context).build().apply {
-                            val mediaItem = MediaItem.Builder()
-                                .setUri(Uri.parse(videoUri))
-                                .build()
-                            setMediaItem(mediaItem)
-                            playWhenReady = true
+                            val mediaItem = MediaItem.fromUri(Uri.parse(videoUri))
+                            setMediaItem(mediaItem, true)
                             prepare()
-                            play()
+                            playWhenReady = true
                         }
                     }
-                    DisposableEffect(
-                        AndroidView(
-                            modifier = Modifier.fillMaxSize(),
-                            factory = {
-                                StyledPlayerView(context).apply {
-                                    player = exoPlayer
-                                    useController = true
-                                    FrameLayout.LayoutParams(
-                                        ViewGroup.LayoutParams.MATCH_PARENT,
-                                        ViewGroup.LayoutParams.MATCH_PARENT
-                                    )
-                                }
-                            }
-                        )
-                    ) {
+
+                    DisposableEffect(Unit) {
                         onDispose {
                             exoPlayer.release()
                         }
                     }
+
+                    AndroidView(
+                        modifier = Modifier.fillMaxSize(),
+                        factory = {
+                            PlayerView(it).apply {
+                                player = exoPlayer
+                                useController = true
+                            }
+                        }
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -111,5 +100,4 @@ fun VideoPlayerScreen(
             }
         }
     }
-
 }
