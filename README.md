@@ -17,7 +17,7 @@
 - Coil for image download
 - Timber for logging
 - Lottie for Animation
-- Exoplayer
+- media3 for videos
 - Multi-Module 
 
 ### Demo : 
