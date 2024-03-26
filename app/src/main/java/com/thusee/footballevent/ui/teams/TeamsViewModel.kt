@@ -2,9 +2,12 @@ package com.thusee.footballevent.ui.teams
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
+import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
+import com.thusee.footballevent.ui.common.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,26 +17,38 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TeamsViewModel @Inject constructor(
-    private val matchDataRepository: MatchDataRepository
+    private val matchDataRepository: MatchDataRepository,
+    private val errorUtil: ErrorMessageResourceUtil
 ) : ViewModel() {
-    private val _teamsState = MutableStateFlow<UIState<List<Team>>>(UIState.Loading)
-    val teamsState: StateFlow<UIState<List<Team>>> = _teamsState.asStateFlow()
+    private var _teamsState = MutableStateFlow<UIState<List<Team>, ErrorDisplayInfo>>(UIState.Loading)
+    val teamsState: StateFlow<UIState<List<Team>, ErrorDisplayInfo>> = _teamsState.asStateFlow()
 
     init {
         fetchTeams()
     }
 
     private fun fetchTeams() {
+        val fetchingTeamsException = FetchingTeamsException(R.string.error_fetching_teams)
+
         viewModelScope.launch {
             val result = matchDataRepository.getTeams()
             _teamsState.value = when {
                 result.isSuccess && result.getOrNull().isNullOrEmpty() -> UIState.Empty
                 result.isSuccess -> UIState.Success(result.getOrNull().orEmpty())
                 result.isFailure -> UIState.Error(
-                    result.exceptionOrNull() ?: Exception("Unknown error")
+                   ErrorDisplayInfo(
+                       errorUtil.getErrorMessageResource(
+                            result.exceptionOrNull() ?: fetchingTeamsException
+                       )
+                   )
                 )
 
-                else -> UIState.Error(Exception("Error fetching teams"))
+                else -> UIState.Error(
+                    ErrorDisplayInfo(
+                        errorUtil.getErrorMessageResource(
+                            fetchingTeamsException)
+                    )
+                )
             }
         }
     }

@@ -15,7 +15,9 @@
     <string name="error_server_down">Oops! Something went wrong on our server. Please try again later.</string>
     <string name="error_page_not_found">Sorry, the page you\'re looking for could not be found.</string>
     <string name="error_common">Oops! Something went wrong. Please try again later.</string>
+    <string name="error_fetching_teams">Error Fetching Teams.</string>
     <string name="won_by">Won by :</string>
     <string name="home">Home</string>
     <string name="away">Away</string>
+    <string name="error_fetching_matches">Error Fetching Teams.</string>
 </resources>

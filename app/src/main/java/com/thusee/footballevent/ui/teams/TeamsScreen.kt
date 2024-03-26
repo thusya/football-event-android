@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,12 +20,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.thusee.footballevent.domain.model.Team
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
 import com.thusee.footballevent.ui.components.ErrorScreen
 import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
 import com.thusee.footballevent.ui.navigation.DetailsScreen
 import com.thusee.footballevent.ui.navigation.TEAM_ID
 import com.thusee.footballevent.ui.navigation.TEAM_NAME
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
 import timber.log.Timber
 
 @Composable
@@ -43,12 +45,13 @@ fun TeamsScreen(
             navController = navController
         )
 
-        is UIState.Error -> {
+        is UIState.Error<ErrorDisplayInfo> -> {
+            val errorMessage = stringResource(id = state.errorData.messageResource)
             ErrorScreen(
-                exception = state.exception,
+                errorMessage = errorMessage,
                 modifier = modifier
             )
-            Timber.d("Error ${state.exception.message}")
+            Timber.d("Error $errorMessage")
         }
 
         is UIState.Empty -> {}

@@ -12,7 +12,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.thusee.footballevent.ui.navigation.BottomBarScreen
 import com.thusee.footballevent.ui.theme.FootballEventTheme
@@ -51,13 +50,5 @@ private fun SetBarColor(color: androidx.compose.ui.graphics.Color) {
         systemUiController.setStatusBarColor(
             color = color
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FootballEventTheme {
-
     }
 }

@@ -4,12 +4,14 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.ErrorScreen
 import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
 
 @Composable
 fun TeamMatchesDetailsScreen(
@@ -30,12 +32,11 @@ fun TeamMatchesDetailsScreen(
                 )
             }
 
-            is UIState.Error -> {
+            is UIState.Error<ErrorDisplayInfo> -> {
                 ErrorScreen(
-                    exception = state.exception,
+                    errorMessage = stringResource(id = state.errorData.messageResource),
                     modifier = modifier
                 )
-                "errorMessage = ${state.exception.message}"
             }
 
             UIState.Empty -> {}

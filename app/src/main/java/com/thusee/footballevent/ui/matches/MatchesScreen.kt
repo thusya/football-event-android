@@ -7,13 +7,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.ErrorScreen
 import com.thusee.footballevent.ui.components.NestedScrollingView
 import com.thusee.footballevent.ui.components.lottie.LottieLoadingAnimation
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
+import timber.log.Timber
 
 @Composable
 fun MatchesScreen(
@@ -28,12 +31,14 @@ fun MatchesScreen(
                 MatchesList(modifier = modifier, matches = state.data)
             }
 
-            is UIState.Error -> {
+            is UIState.Error<ErrorDisplayInfo> -> {
+                val errorMessage = stringResource(id = state.errorData.messageResource)
+
                 ErrorScreen(
-                    exception = state.exception,
+                    errorMessage = errorMessage,
                     modifier = modifier
                 )
-                "errorMessage = ${state.exception.message}"
+                Timber.d("Error $errorMessage")
             }
 
             UIState.Empty -> {}
