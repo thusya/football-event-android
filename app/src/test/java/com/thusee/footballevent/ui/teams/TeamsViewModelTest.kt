@@ -3,7 +3,8 @@ package com.thusee.footballevent.ui.teams
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository
 import com.thusee.footballevent.ui.utils.MainCoroutineExtension
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class TeamsViewModelTest {
     private val matchDataRepository: MatchDataRepository = mockk(relaxed = true)
     private lateinit var teamsViewModel: TeamsViewModel
+    private val errorUtil: ErrorMessageResourceUtil = mockk(relaxed = true)
 
     @Test
     fun `fetchTeams with success should update teamsState to Success`() =
@@ -22,7 +24,7 @@ class TeamsViewModelTest {
             val mockTeams = listOf(Team("Team A"), Team("Team B"))
             coEvery { matchDataRepository.getTeams() } returns Result.success(mockTeams)
 
-            teamsViewModel = TeamsViewModel(matchDataRepository)
+            teamsViewModel = TeamsViewModel(matchDataRepository, errorUtil)
 
             assertEquals(UIState.Success(mockTeams), teamsViewModel.teamsState.value)
         }
@@ -32,7 +34,7 @@ class TeamsViewModelTest {
         runTest {
             coEvery { matchDataRepository.getTeams() } returns Result.success(emptyList())
 
-            teamsViewModel = TeamsViewModel(matchDataRepository)
+            teamsViewModel = TeamsViewModel(matchDataRepository, errorUtil)
 
             assertEquals(UIState.Empty, teamsViewModel.teamsState.value)
         }
@@ -43,7 +45,7 @@ class TeamsViewModelTest {
             val error = Exception("Some error")
             coEvery { matchDataRepository.getTeams() } returns Result.failure(error)
 
-            teamsViewModel = TeamsViewModel(matchDataRepository)
+            teamsViewModel = TeamsViewModel(matchDataRepository, errorUtil)
 
             assertEquals(UIState.Error(error), teamsViewModel.teamsState.value)
         }

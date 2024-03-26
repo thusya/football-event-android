@@ -6,7 +6,8 @@ import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
 import com.thusee.footballevent.ui.navigation.TEAM_ID
 import com.thusee.footballevent.ui.utils.MainCoroutineExtension
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class DetailsViewModelTest {
     private val matchDataRepository: MatchDataRepository = mockk(relaxed = true)
     private val savedStateHandle: SavedStateHandle = mockk(relaxed = true)
+    private val errorUtil: ErrorMessageResourceUtil = mockk(relaxed = true)
     private lateinit var detailsViewModel: DetailsViewModel
 
     @Test
@@ -35,7 +37,7 @@ class DetailsViewModelTest {
         coEvery { savedStateHandle.get<String>(TEAM_ID) } returns teamId
         coEvery { matchDataRepository.getMatchesByTeamId(teamId) } returns Result.success(mockMatches)
 
-        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle)
+        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle, errorUtil)
 
         assertEquals(UIState.Success(mockMatches), detailsViewModel.uiState)
     }
@@ -47,7 +49,7 @@ class DetailsViewModelTest {
         coEvery { savedStateHandle.get<String>(TEAM_ID) } returns teamId
         coEvery { matchDataRepository.getMatchesByTeamId(teamId) } returns Result.success(emptyMatches)
 
-        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle)
+        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle, errorUtil)
 
         assertEquals(UIState.Empty, detailsViewModel.uiState)
     }
@@ -59,7 +61,7 @@ class DetailsViewModelTest {
         coEvery { savedStateHandle.get<String>(TEAM_ID) } returns teamId
         coEvery { matchDataRepository.getMatchesByTeamId(teamId) } returns Result.failure(error)
 
-        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle)
+        detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle, errorUtil)
 
         assertEquals(UIState.Error(error), detailsViewModel.uiState)
     }

@@ -4,7 +4,8 @@ import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
 import com.thusee.footballevent.ui.utils.MainCoroutineExtension
-import com.thusee.footballevent.ui.utils.UIState
+import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 class MatchesViewModelTest {
     private val matchDataRepository: MatchDataRepository = mockk(relaxed = true)
     private lateinit var matchesViewModel: MatchesViewModel
+    private val errorUtil: ErrorMessageResourceUtil = mockk(relaxed = true)
 
     @Test
     fun `fetchMatches with success should update uiState to Success`() = runTest {
@@ -30,7 +32,7 @@ class MatchesViewModelTest {
         )
         coEvery { matchDataRepository.getMatches() } returns Result.success(mockMatches)
 
-        matchesViewModel = MatchesViewModel(matchDataRepository)
+        matchesViewModel = MatchesViewModel(matchDataRepository, errorUtil)
 
         assertEquals(UIState.Success(mockMatches), matchesViewModel.uiState)
     }
@@ -40,7 +42,7 @@ class MatchesViewModelTest {
         val emptyMatches = Matches()
         coEvery { matchDataRepository.getMatches() } returns Result.success(emptyMatches)
 
-        matchesViewModel = MatchesViewModel(matchDataRepository)
+        matchesViewModel = MatchesViewModel(matchDataRepository, errorUtil)
 
         assertEquals(UIState.Empty, matchesViewModel.uiState)
     }
@@ -50,7 +52,7 @@ class MatchesViewModelTest {
         val error = Exception("Some error")
         coEvery { matchDataRepository.getMatches() } returns Result.failure(error)
 
-        matchesViewModel = MatchesViewModel(matchDataRepository)
+        matchesViewModel = MatchesViewModel(matchDataRepository, errorUtil)
 
         assertEquals(UIState.Error(error), matchesViewModel.uiState)
     }
