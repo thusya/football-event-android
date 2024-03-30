@@ -1,11 +1,14 @@
 package com.thusee.footballevent.ui.teams
 
+import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import com.thusee.footballevent.ui.common.UIState
 import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
+import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -44,9 +47,10 @@ class TeamsViewModelTest {
         runTest {
             val error = Exception("Some error")
             coEvery { matchDataRepository.getTeams() } returns Result.failure(error)
+            every { errorUtil.getErrorMessageResource(error) } returns R.string.error_common
 
             teamsViewModel = TeamsViewModel(matchDataRepository, errorUtil)
 
-            assertEquals(UIState.Error(error), teamsViewModel.teamsState.value)
+            assertEquals(R.string.error_common, (teamsViewModel.teamsState.value as UIState.Error<ErrorDisplayInfo>).errorData.messageResource)
         }
 }

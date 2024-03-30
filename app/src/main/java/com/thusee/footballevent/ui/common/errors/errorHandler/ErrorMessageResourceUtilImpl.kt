@@ -6,8 +6,8 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 class ErrorMessageResourceUtilImpl @Inject constructor() : ErrorMessageResourceUtil {
-    override fun getErrorMessageResource(error: Throwable): Int {
-        val errorMessage = error.message ?: ""
+    override fun getErrorMessageResource(error: Throwable?): Int {
+        val errorMessage = error?.message ?: ""
 
         return when(error) {
             is UnknownHostException -> R.string.error_no_network

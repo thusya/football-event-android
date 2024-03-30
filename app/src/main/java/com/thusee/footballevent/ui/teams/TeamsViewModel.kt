@@ -2,12 +2,11 @@ package com.thusee.footballevent.ui.teams
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Team
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
-import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
 import com.thusee.footballevent.ui.common.UIState
+import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +19,8 @@ class TeamsViewModel @Inject constructor(
     private val matchDataRepository: MatchDataRepository,
     private val errorUtil: ErrorMessageResourceUtil
 ) : ViewModel() {
-    private var _teamsState = MutableStateFlow<UIState<List<Team>, ErrorDisplayInfo>>(UIState.Loading)
+    private var _teamsState =
+        MutableStateFlow<UIState<List<Team>, ErrorDisplayInfo>>(UIState.Loading)
     val teamsState: StateFlow<UIState<List<Team>, ErrorDisplayInfo>> = _teamsState.asStateFlow()
 
     init {
@@ -28,25 +28,22 @@ class TeamsViewModel @Inject constructor(
     }
 
     private fun fetchTeams() {
-        val fetchingTeamsException = FetchingTeamsException(R.string.error_fetching_teams)
-
         viewModelScope.launch {
             val result = matchDataRepository.getTeams()
             _teamsState.value = when {
                 result.isSuccess && result.getOrNull().isNullOrEmpty() -> UIState.Empty
                 result.isSuccess -> UIState.Success(result.getOrNull().orEmpty())
                 result.isFailure -> UIState.Error(
-                   ErrorDisplayInfo(
-                       errorUtil.getErrorMessageResource(
-                            result.exceptionOrNull() ?: fetchingTeamsException
-                       )
-                   )
+                    ErrorDisplayInfo(
+                        errorUtil.getErrorMessageResource(
+                            result.exceptionOrNull()
+                        )
+                    )
                 )
 
                 else -> UIState.Error(
                     ErrorDisplayInfo(
-                        errorUtil.getErrorMessageResource(
-                            fetchingTeamsException)
+                        errorUtil.getErrorMessageResource(result.exceptionOrNull())
                     )
                 )
             }

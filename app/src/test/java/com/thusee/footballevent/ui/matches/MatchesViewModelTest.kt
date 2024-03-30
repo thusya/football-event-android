@@ -1,12 +1,15 @@
 package com.thusee.footballevent.ui.matches
 
+import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import com.thusee.footballevent.ui.common.UIState
 import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
+import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -51,9 +54,10 @@ class MatchesViewModelTest {
     fun `fetchMatches with failure should update uiState to Error`() = runTest {
         val error = Exception("Some error")
         coEvery { matchDataRepository.getMatches() } returns Result.failure(error)
+        every { errorUtil.getErrorMessageResource(error) } returns R.string.error_common
 
         matchesViewModel = MatchesViewModel(matchDataRepository, errorUtil)
 
-        assertEquals(UIState.Error(error), matchesViewModel.uiState)
+        assertEquals(R.string.error_common, (matchesViewModel.uiState as UIState.Error<ErrorDisplayInfo>).errorData.messageResource)
     }
 }

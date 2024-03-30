@@ -1,17 +1,20 @@
 package com.thusee.footballevent.ui.teamsdetails
 
 import androidx.lifecycle.SavedStateHandle
+import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.navigation.TEAM_ID
-import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import com.thusee.footballevent.ui.common.UIState
 import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
+import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
+import com.thusee.footballevent.ui.navigation.TEAM_ID
+import com.thusee.footballevent.ui.utils.MainCoroutineExtension
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -60,9 +63,10 @@ class DetailsViewModelTest {
         val error = Exception("Some error")
         coEvery { savedStateHandle.get<String>(TEAM_ID) } returns teamId
         coEvery { matchDataRepository.getMatchesByTeamId(teamId) } returns Result.failure(error)
+        every { errorUtil.getErrorMessageResource(error) } returns R.string.error_common
 
         detailsViewModel = DetailsViewModel(matchDataRepository, savedStateHandle, errorUtil)
 
-        assertEquals(UIState.Error(error), detailsViewModel.uiState)
+        assertEquals(R.string.error_common, (detailsViewModel.uiState as UIState.Error<ErrorDisplayInfo>).errorData.messageResource)
     }
 }

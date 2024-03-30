@@ -6,14 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.domain.repository.MatchDataRepository
-import com.thusee.footballevent.ui.navigation.TEAM_ID
 import com.thusee.footballevent.ui.common.UIState
 import com.thusee.footballevent.ui.common.errors.errorHandler.ErrorMessageResourceUtil
 import com.thusee.footballevent.ui.common.errors.state.ErrorDisplayInfo
-import com.thusee.footballevent.ui.matches.FetchingMatchesException
+import com.thusee.footballevent.ui.navigation.TEAM_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,8 +32,6 @@ class DetailsViewModel @Inject constructor(
     }
 
     private fun getMatchesDetailsByTeam(teamId: String) {
-        val fetchingMatchesException = FetchingMatchesException(R.string.error_fetching_matches)
-
         viewModelScope.launch {
             val result = matchDataRepository.getMatchesByTeamId(teamId)
             uiState = when {
@@ -44,7 +40,7 @@ class DetailsViewModel @Inject constructor(
                 result.isFailure -> UIState.Error(
                     ErrorDisplayInfo(
                         errorUtil.getErrorMessageResource(
-                            result.exceptionOrNull() ?: fetchingMatchesException
+                            result.exceptionOrNull()
                         )
                     )
                 )
@@ -52,10 +48,11 @@ class DetailsViewModel @Inject constructor(
                 else -> UIState.Error(
                     ErrorDisplayInfo(
                         errorUtil.getErrorMessageResource(
-                            result.exceptionOrNull() ?: fetchingMatchesException
+                            result.exceptionOrNull()
                         )
                     )
-                )            }
+                )
+            }
         }
     }
 
