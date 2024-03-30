@@ -23,6 +23,7 @@ import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.ui.theme.Green
 import com.thusee.footballevent.ui.theme.Orange
+import com.thusee.footballevent.ui.theme.poppins
 import com.thusee.footballevent.ui.utils.DateUtils.convertDateTime
 import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 
@@ -60,7 +61,8 @@ fun VerticalMatchCardDetails(
                 style = MaterialTheme.typography.titleSmall.copy(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Orange
+                    color = Orange,
+                    fontFamily = poppins
                 ),
             )
             Text(
@@ -68,7 +70,8 @@ fun VerticalMatchCardDetails(
                 style = MaterialTheme.typography.titleSmall.copy(
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Green
+                    color = Green,
+                    fontFamily = poppins
                 ),
             )
         }
@@ -101,6 +104,7 @@ fun MatchDetailCardColumn(
             style = MaterialTheme.typography.titleSmall.copy(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
+                fontFamily = poppins
             ),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
@@ -113,6 +117,7 @@ fun MatchDetailCardColumn(
             style = MaterialTheme.typography.titleSmall.copy(
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = poppins
             ),
             modifier = Modifier
                 .fillMaxWidth()

@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -20,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
@@ -27,6 +29,7 @@ import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.CustomToolbar
 import com.thusee.footballevent.ui.components.horizontal.HorizontalMatchCard
 import com.thusee.footballevent.ui.components.vertical.MatchVerticalList
+import com.thusee.footballevent.ui.theme.poppins
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -73,7 +76,11 @@ fun TabScreen(
                     selected = index == selectedTabIndex,
                     onClick = { selectedTabIndex = index },
                     text = {
-                        Text(text = matchTabItem.title)
+                        Text(text = matchTabItem.title,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontFamily = poppins,
+                                fontWeight = FontWeight.Normal,
+                            ))
                     }
                 )
             }

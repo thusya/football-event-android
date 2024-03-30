@@ -34,6 +34,7 @@ import com.thusee.footballevent.R
 import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.ui.components.VideoPlayerScreen
 import com.thusee.footballevent.ui.theme.WonByTextStyle
+import com.thusee.footballevent.ui.theme.poppins
 import com.thusee.footballevent.ui.utils.DateUtils
 import com.thusee.footballevent.ui.utils.Utils.splitStringIfStartsWithTeam
 
@@ -86,7 +87,8 @@ fun HorizontalMatchCard(
                         text = splitStringIfStartsWithTeam(match.home).remainingString,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontWeight = FontWeight(600)
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = poppins,
                         ),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(4.dp)
@@ -98,7 +100,8 @@ fun HorizontalMatchCard(
                         text = stringResource(id = R.string.vs),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontWeight = FontWeight(700)
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = poppins,
                         ),
                         modifier = Modifier
                             .padding(4.dp)
@@ -111,7 +114,8 @@ fun HorizontalMatchCard(
                         text = splitStringIfStartsWithTeam(match.away).remainingString,
                         style = MaterialTheme.typography.bodyMedium.copy(
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontWeight = FontWeight(600)
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = poppins,
                         ),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(4.dp)
@@ -134,7 +138,8 @@ fun HorizontalMatchCard(
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 13.sp,
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontStyle = FontStyle.Normal
+                            fontStyle = FontStyle.Normal,
+                            fontFamily = poppins,
                         ),
                         textAlign = TextAlign.Center
                     )
@@ -146,7 +151,8 @@ fun HorizontalMatchCard(
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontSize = 13.sp,
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontStyle = FontStyle.Normal
+                            fontStyle = FontStyle.Normal,
+                            fontFamily = poppins,
                         ),
                         textAlign = TextAlign.Center
                     )
@@ -165,7 +171,13 @@ fun HorizontalMatchCard(
                     Spacer(modifier = Modifier.width(16.dp))
 
                     Button(onClick = { openVideoPlayer = true }) {
-                        Text(text = stringResource(id = R.string.highlight))
+                        Text(
+                            text = stringResource(id = R.string.highlight),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Medium,
+                                fontFamily = poppins,
+                            ),
+                        )
                     }
                 }
             }
@@ -186,7 +198,7 @@ fun WonBySpannedText(teamName: String) {
             text = stringResource(id = R.string.won_by),
             style = MaterialTheme.typography.WonByTextStyle.copy(
                 fontSize = 13.sp,
-                fontWeight = FontWeight(500),
+                fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onBackground
             ),
         )
