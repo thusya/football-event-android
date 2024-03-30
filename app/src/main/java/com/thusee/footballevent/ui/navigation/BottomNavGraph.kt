@@ -111,6 +111,7 @@ fun NavGraphBuilder.detailsNavGraph(
 sealed class NavigationScreen(val route: String) {
     data object Teams : NavigationScreen("Teams")
     data object Matches : NavigationScreen("Matches")
+    data object Settings : NavigationScreen("Settings")
 }
 
 sealed class DetailsScreen(val route: String) {

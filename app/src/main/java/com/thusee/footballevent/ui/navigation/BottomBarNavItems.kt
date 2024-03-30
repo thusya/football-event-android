@@ -18,4 +18,10 @@ sealed class BottomBarNavItems(
         title = R.string.matches_screen_name,
         icon = R.drawable.ic_schedule,
     )
+
+    data object Settings : BottomBarNavItems(
+        route = NavigationScreen.Settings.route,
+        title = R.string.settings_screen_name,
+        icon = R.drawable.ic_schedule,
+    )
 }
