@@ -30,7 +30,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.thusee.footballevent.BuildConfig
 import com.thusee.footballevent.R
 import com.thusee.footballevent.constants.AppConstants
@@ -43,7 +42,6 @@ import com.thusee.footballevent.ui.theme.spacing
 fun SettingsScreen(
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
-    navController: NavController
 ) {
     val notificationEnabled by viewModel.notificationEnabled.collectAsState()
     val context = LocalContext.current
@@ -54,8 +52,7 @@ fun SettingsScreen(
         CustomToolbar(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(id = R.string.settings_screen_name),
-            showBackButton = true,
-            onBack = { navController.popBackStack() }
+            showBackButton = false,
         )
         Spacer(modifier = Modifier.height(20.dp))
 

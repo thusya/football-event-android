@@ -55,7 +55,7 @@ fun BottomNavGraph(
             exitTransition = AnimationConfig.exitTransitionDefault,
         ) {
             Box(modifier = Modifier.padding(paddingValues)) {
-                SettingsScreen(navController = navController)
+                SettingsScreen()
             }
         }
 

@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.thusee.footballevent.R
@@ -19,6 +20,7 @@ import com.thusee.footballevent.domain.model.Match
 import com.thusee.footballevent.domain.model.Matches
 import com.thusee.footballevent.ui.components.horizontal.HorizontalMatchList
 import com.thusee.footballevent.ui.components.vertical.VerticalMatchCard
+import com.thusee.footballevent.ui.theme.poppins
 
 @Composable
 fun NestedScrollingView(
@@ -37,9 +39,11 @@ fun NestedScrollingView(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 16.dp),
-                text = stringResource(R.string.previous_match),
+                text = stringResource(R.string.previous_match).uppercase(),
                 style = MaterialTheme.typography.headlineSmall.copy(
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontFamily = poppins,
+                    fontWeight = FontWeight.Medium
                 )
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -48,9 +52,11 @@ fun NestedScrollingView(
 
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = stringResource(R.string.upcoming_match),
+                text = stringResource(R.string.upcoming_match).uppercase(),
                 style = MaterialTheme.typography.headlineSmall.copy(
-                    color = MaterialTheme.colorScheme.onBackground
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontFamily = poppins,
+                    fontWeight = FontWeight.Medium
                 )
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -68,11 +74,32 @@ fun NestedScrollingViewPreview() {
         modifier = Modifier,
         Matches(
             previous = listOf(
-                Match("Team A", "2022-04-24T18:00:00.000Z", "Description 1", "Highlights 1", "Team B", "Team A"),
-                Match("Team C", "2022-04-24T18:00:00.000Z", "Description 2", "Highlights 2", "Team D", "Team C")
+                Match(
+                    "Team A",
+                    "2022-04-24T18:00:00.000Z",
+                    "Description 1",
+                    "Highlights 1",
+                    "Team B",
+                    "Team A"
+                ),
+                Match(
+                    "Team C",
+                    "2022-04-24T18:00:00.000Z",
+                    "Description 2",
+                    "Highlights 2",
+                    "Team D",
+                    "Team C"
+                )
             ),
             upcoming = listOf(
-                Match("Team E", "2022-04-24T18:00:00.000Z", "Description 3", "Highlights 3", "Team F", "Team E")
+                Match(
+                    "Team E",
+                    "2022-04-24T18:00:00.000Z",
+                    "Description 3",
+                    "Highlights 3",
+                    "Team F",
+                    "Team E"
+                )
             )
         )
     )
