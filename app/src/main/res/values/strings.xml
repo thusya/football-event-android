@@ -19,4 +19,12 @@
     <string name="won_by">Won by :</string>
     <string name="home">Home</string>
     <string name="away">Away</string>
+    <string name="choose_your_browser">Choose browser</string>
+    <string name="no_browser_found">Browser not installed</string>
+    <string name="settings_general">General</string>
+    <string name="setting_notification">Notification</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
+    <string name="setting_linked_in">LinkedIn</string>
+    <string name="setting_github">GitHub</string>
+    <string name="settings_app_version">App Version</string>
 </resources>

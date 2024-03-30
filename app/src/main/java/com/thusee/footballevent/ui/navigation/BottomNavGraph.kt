@@ -17,6 +17,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.thusee.footballevent.constants.AnimationConfig
 import com.thusee.footballevent.ui.matches.MatchesScreen
+import com.thusee.footballevent.ui.settings.SettingsScreen
 import com.thusee.footballevent.ui.teams.TeamsScreen
 import com.thusee.footballevent.ui.teamsdetails.TeamMatchesDetailsScreen
 
@@ -46,6 +47,15 @@ fun BottomNavGraph(
         ) {
             Box(modifier = Modifier.padding(paddingValues)) {
                 MatchesScreen()
+            }
+        }
+        composable(
+            route = BottomBarNavItems.Settings.route,
+            enterTransition = AnimationConfig.enterTransitionDefault,
+            exitTransition = AnimationConfig.exitTransitionDefault,
+        ) {
+            Box(modifier = Modifier.padding(paddingValues)) {
+                SettingsScreen(navController = navController)
             }
         }
 
