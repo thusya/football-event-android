@@ -35,7 +35,7 @@ fun MatchesScreen(
                 val errorMessage = stringResource(id = state.errorData.messageResource)
 
                 ErrorScreen(
-                    errorMessage = errorMessage,
+                    message = errorMessage,
                     modifier = modifier
                 )
                 Timber.d("Error $errorMessage")

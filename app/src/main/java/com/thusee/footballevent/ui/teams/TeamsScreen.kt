@@ -48,8 +48,9 @@ fun TeamsScreen(
         is UIState.Error<ErrorDisplayInfo> -> {
             val errorMessage = stringResource(id = state.errorData.messageResource)
             ErrorScreen(
-                errorMessage = errorMessage,
-                modifier = modifier
+                message = errorMessage,
+                modifier = modifier,
+                onRetry = { viewModel.retry() }
             )
             Timber.d("Error $errorMessage")
         }

@@ -49,4 +49,8 @@ class TeamsViewModel @Inject constructor(
             }
         }
     }
+
+    fun retry() {
+        fetchTeams()
+    }
 }

@@ -34,7 +34,7 @@ fun TeamMatchesDetailsScreen(
 
             is UIState.Error<ErrorDisplayInfo> -> {
                 ErrorScreen(
-                    errorMessage = stringResource(id = state.errorData.messageResource),
+                    message = stringResource(id = state.errorData.messageResource),
                     modifier = modifier
                 )
             }

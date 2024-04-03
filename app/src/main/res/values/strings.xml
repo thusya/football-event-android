@@ -27,4 +27,5 @@
     <string name="setting_linked_in">LinkedIn</string>
     <string name="setting_github">GitHub</string>
     <string name="settings_app_version">App Version</string>
+    <string name="retry">Retry</string>
 </resources>
