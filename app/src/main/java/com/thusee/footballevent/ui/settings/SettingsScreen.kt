@@ -133,7 +133,7 @@ fun SettingItemWithArrow(
             modifier = Modifier
                 .padding(
                     top = MaterialTheme.spacing.spacing12,
-                    bottom = MaterialTheme.spacing.spacing14,
+                    bottom = MaterialTheme.spacing.spacing12,
                     start = MaterialTheme.spacing.spacing23,
                 )
                 .weight(1f),
@@ -178,7 +178,7 @@ fun SettingItemWithText(
             modifier = Modifier
                 .padding(
                     top = MaterialTheme.spacing.spacing12,
-                    bottom = MaterialTheme.spacing.spacing14,
+                    bottom = MaterialTheme.spacing.spacing12,
                     start = MaterialTheme.spacing.spacing23,
                 )
                 .weight(1f),
@@ -230,7 +230,7 @@ fun SettingItemWithToggle(
             modifier = Modifier
                 .padding(
                     top = MaterialTheme.spacing.spacing12,
-                    bottom = MaterialTheme.spacing.spacing14,
+                    bottom = MaterialTheme.spacing.spacing12,
                     start = MaterialTheme.spacing.spacing23,
                 )
                 .weight(1f),

@@ -2,8 +2,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
-    kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -81,7 +81,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidbrowserhelper)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
 
     implementation(libs.androidx.media3.exoplayer)
     implementation(libs.androidx.media3.ui)
@@ -118,8 +118,4 @@ dependencies {
     debugImplementation(libs.ui.test.manifest)
 
     implementation(project(":network"))
-}
-
-kapt {
-    correctErrorTypes = true
 }
